@@ -15,7 +15,6 @@ setuptools.setup(
     keywords=('perceptron '
               'averaged-perceptron '
               'machine-learning'),
-    ext_modules=[setuptools.Extension('lmj.pursuit._correlate', sources=['lmj/pursuit/correlate.c'])],
     classifiers=[
         'Development Status :: 4 - Beta',
         'Intended Audience :: Science/Research',
