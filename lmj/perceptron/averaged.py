@@ -28,13 +28,13 @@ def score(features, weights):
 class Perceptron:
     def __init__(self):
         self.weights = collections.defaultdict(float)
-        self.edge = collections.defaultdict(float)
+        self.edges = collections.defaultdict(float)
         self.count = 0
 
     def learn(self, features, label):
         if self.predict(features) ^ bool(label):
             for f in features:
-                self.weights[f] += 1
+                self.edges[f] += 1
         self.average()
 
     def predict(self, features):
@@ -42,7 +42,7 @@ class Perceptron:
 
     def average(self):
         c = self.count
-        for f, w in self.edge.iteritems():
+        for f, w in self.edges.iteritems():
             self.weights[f] = (c * self.weights[f] + w) / (c + 1)
         self.count += 1
 
