@@ -58,8 +58,8 @@ class Multiclass(Perceptron):
     def learn(self, features, label):
         predicted = self.predict(features, True)
         if predicted != label:
-            toward = self.classes[label]
-            away = self.classes[predicted]
+            toward = self.edges[label]
+            away = self.edges[predicted]
             for f in features:
                 toward[f] += 1
                 away[f] -= 1
