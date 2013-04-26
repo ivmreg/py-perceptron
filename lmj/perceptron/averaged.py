@@ -20,6 +20,7 @@
 
 import collections
 
+NULL_LABEL = '__NULL_LABEL__'
 
 def score(features, weights):
     return sum(weights.get(f, 0) for f in features)
@@ -56,9 +57,12 @@ class Multiclass(Perceptron):
         self.count = 0
 
     def learn(self, features, label):
+        toward = self.edges[label]
         predicted = self.predict(features, True)
-        if predicted != label:
-            toward = self.edges[label]
+        if predicted is NULL_LABEL:
+            for f in features:
+                toward[f] += 1
+        elif predicted != label:
             away = self.edges[predicted]
             for f in features:
                 toward[f] += 1
@@ -69,6 +73,8 @@ class Multiclass(Perceptron):
         sources = self.weights
         if edge:
             sources = self.edges
+        if not sources:
+            return NULL_LABEL
         return max((score(features, ws), l) for l, ws in sources.iteritems())[1]
 
     def average(self):
